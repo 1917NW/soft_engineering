@@ -12,7 +12,7 @@ public class TestController {
     public String test(){
 
         System.out.println("success");
-        return "success";
+        return "success1";
 
     }
 }
