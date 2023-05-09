@@ -1,0 +1,10 @@
+
+server:
+  port: 9999
+
+spring:
+  datasource:
+    username: root
+    password: root
+    url: jdbc:mysql:///first_project
+
