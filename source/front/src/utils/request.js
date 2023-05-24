@@ -31,15 +31,15 @@ const errorHandle = (status,info) => {
 
 const instance = axios.create({
     timeout:5000,
-    baseURL: path.baseUrl
+    baseURL: path.baseUrl,
+    
 })
 
 //设置请求发送之前的拦截器
 instance.interceptors.request.use(
     config =>{
-        if(config.method === "post"){
-            config.data = qs.stringify(config.data)
-        }
+       
+        
         return config;
     },
     error => Promise.reject(error)
@@ -47,7 +47,7 @@ instance.interceptors.request.use(
 
 //设置接收到响应的拦截器
 instance.interceptors.response.use(
-    response => response.status === 200 ? Promise.resolve(response) : Promise.reject(response),
+    response => response.status === 200 && response.data.code === 20000? response.data : Promise.reject(response),
     error =>{
         const { response } = error;
         errorHandle(response.status,response.info)
