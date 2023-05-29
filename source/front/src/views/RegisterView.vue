@@ -2,7 +2,7 @@
     <div class="login-container">
    <div class="box">
         <h2>Register</h2>
-        <el-form ref="userForm" :model="userForm" label-width="80px">
+        <el-form ref="userForm" :model="userForm" label-width="80px" style="margin-top:10px">
             <el-form-item label="身份证号">
             <el-input placeholder="请输入身份证号" v-model="userForm.userIdNumber"></el-input>
         </el-form-item>
@@ -21,7 +21,7 @@
         </el-form>
      
         <el-button type="primary" @click="onSubmit">注册</el-button>
-        <div class="toLogin"><router-link to="/login">返回登录</router-link></div>
+        <div class="toLogin"><router-link to="/login" class="line">返回登录</router-link></div>
     </div>
 </div>
 </template>

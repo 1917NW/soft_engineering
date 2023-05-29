@@ -1,12 +1,12 @@
 <template>
     <div>
         <h1 class="title">{{ paper.paperName }}</h1>
-        <div v-for="module,index in paper.paperQuestions" :key="index">
-            <div>{{ module.moduleName }}</div>
+        <div v-for="module,index in paper.paperQuestions" :key="index" style="margin-top: 10px;">
+            <h2>{{ module.moduleName }}</h2>
             <div>{{ module.questionType }}</div>
-            <div v-for="q, index2 in module.questions" :key="index2">
-                <div>{{ q.questionPrefix }}</div>
-                <questionShow :question="q.question"></questionShow>
+            <div v-for="q, index2 in module.questions" :key="index2" style="margin-top:10px">
+                <h3>{{ q.questionPrefix }}</h3>
+                <questionShow :question="q.question" style="margin-top: 10px;"></questionShow>
             </div>
         </div>
 

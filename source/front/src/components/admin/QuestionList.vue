@@ -11,8 +11,13 @@
 
           
     <el-select v-model="searchModel.type" placeholder="题型">
-      <el-option label="选择题" value="1"></el-option>
-      <el-option label="作文题" value="2"></el-option>
+      <el-option label="全部" value=""></el-option>
+      <el-option label="作文题" value="0"></el-option>
+      <el-option label="听力选择题" value="1"></el-option>
+      <el-option label="阅读选词题" value="2"></el-option>
+      <el-option label="阅读选段题" value="3"></el-option>
+      <el-option label="阅读选择题" value="4"></el-option>
+      <el-option label="翻译题" value="5"></el-option>
     </el-select>
   
           
@@ -43,8 +48,12 @@
 
         <el-table-column label="题型" width="180">
           <template slot-scope="scope">
-              <span v-if="scope.row.questionType==1">选择题</span>
-              <span v-if="scope.row.questionType==2">作文题</span>
+              <span v-if="scope.row.questionType==0">作文题</span>
+              <span v-if="scope.row.questionType==1">听力选择题</span>
+              <span v-if="scope.row.questionType==2">阅读选词题</span>
+              <span v-if="scope.row.questionType==3">阅读选段题</span>
+              <span v-if="scope.row.questionType==4">阅读选择题</span>
+              <span v-if="scope.row.questionType==5">翻译题</span>
           </template>
         </el-table-column>
 
@@ -79,7 +88,29 @@
     </el-pagination>
 
     <el-dialog ref="dialog" title="编辑问题" @close="clearForm" :visible.sync="dialogFormVisible">
-      <single :questionModel="questionModel" @father = "fatherMethod"></single>
+      <div v-if="questionModel.questionType==0">
+        <composition :questionModel="questionModel" @father = "fatherMethod"></composition>
+      </div>
+      <div v-if="questionModel.questionType==1">
+        <single :questionModel="questionModel" @father = "fatherMethod"></single>
+      </div>
+      <div v-if="questionModel.questionType==2">
+          <selectWord :questionModel="questionModel" @father = "fatherMethod"></selectWord>
+      </div>
+      <div v-if="questionModel.questionType==3">
+          <selectPara :questionModel="questionModel" @father = "fatherMethod"></selectPara>
+      </div>
+
+      <div v-if="questionModel.questionType==4">
+          <readselect :questionModel="questionModel" @father = "fatherMethod"></readselect>
+      </div>
+
+      <div v-if="questionModel.questionType==5">
+          <translate :questionModel="questionModel" @father = "fatherMethod"></translate>
+      </div>
+
+     
+      
     </el-dialog>
 </div>
 </template>
@@ -87,9 +118,15 @@
 <script>
 import questionApi from "@/api/admin/question_management"
 import single from "./question/editsingle.vue";
+import composition from "./question/editcomposition.vue"
+import selectWord from "./question/editSelectWord.vue"
+import selectPara from "./question/editSelectPara.vue";
+import readselect from "./question/editReadSelect.vue";
+import translate from "./question/edittranslate.vue";
+
 export default {
   components:{
-    single
+    single, composition,selectWord,selectPara,readselect,translate
   },
     data(){
         return {
@@ -129,7 +166,7 @@ export default {
       });
     },
     deleteQuestion(question){
-      this.$confirm(`你确认删除用户${question.questionId}`, '提示', {
+      this.$confirm(`你确认删除问题${question.questionId}`, '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'
@@ -160,7 +197,7 @@ export default {
     fatherMethod(){
       this.getQuestionList();
       this.dialogFormVisible=false;
-      console.log(123)
+      
     }
     },
     created(){

@@ -3,6 +3,11 @@ package com.example.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.io.Serializable;
 
 /**
@@ -14,6 +19,9 @@ import java.io.Serializable;
  * @since 2023-05-11
  */
 @TableName("e_answer")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Answer implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -23,46 +31,14 @@ public class Answer implements Serializable {
 
     private Integer userId;
 
-    private Integer examQuestionId;
+    private Integer examId;
 
     private String answer;
 
-    public Integer getAnswerId() {
-        return answerId;
-    }
+    //0表示未批阅，1表示已批阅
+    private Integer status;
 
-    public void setAnswerId(Integer answerId) {
-        this.answerId = answerId;
-    }
-    public Integer getUserId() {
-        return userId;
-    }
+    //总成绩
+    private Integer score;
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
-    public Integer getExamQuestionId() {
-        return examQuestionId;
-    }
-
-    public void setExamQuestionId(Integer examQuestionId) {
-        this.examQuestionId = examQuestionId;
-    }
-    public String getAnswer() {
-        return answer;
-    }
-
-    public void setAnswer(String answer) {
-        this.answer = answer;
-    }
-
-    @Override
-    public String toString() {
-        return "Answer{" +
-            "answerId=" + answerId +
-            ", userId=" + userId +
-            ", examQuestionId=" + examQuestionId +
-            ", answer=" + answer +
-        "}";
-    }
 }

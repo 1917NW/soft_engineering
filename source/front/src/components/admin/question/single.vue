@@ -2,13 +2,13 @@
   <el-form ref="form" :model="questionModel" label-width="80px">
 
 
-  <el-form-item label="文章" style="margin-top: 20px;">
-    <el-input v-model="questionModel.article" style="width:80%"></el-input>
-  </el-form-item>
+    <el-form-item label="文章" style="margin-top: 20px;">
+      <el-input type="textarea" :rows="6"  v-model="questionModel.article" style="width:60%"></el-input>
+    </el-form-item>
 
   <el-form-item label="子问题"  v-for="(subQuestion,index) in questionModel.subQuestions" :key="index" >
    
-    <el-input v-model="subQuestion.questionTitle"   style="width:80%"/>
+    <el-input type="textarea" :rows="3" v-model="subQuestion.questionTitle"   style="width:60%"/>
     <el-button type="danger" size="mini" class="question-item-remove" icon="el-icon-delete" @click="removeSubQuestion(index)"></el-button>
 
     <el-form-item  :label="item.prefix" :key="item.prefix"  v-for="(item,index2) in subQuestion.items"  label-width="50px" class="question-item-label">
@@ -52,23 +52,10 @@ export default {
                 questionType:1,
                 article:"",
 
-                subQuestions:[{
-                    questionTitle:'',
-                    questionScore:"",
-                items:[{
-                    prefix:'A',
-                    content:''
-                },
-                {
-                    prefix:'B',
-                    content:''
-                }],
-                analysis:"",
-                correct:""
-            }],
-            statements:null,
-            questionCorrect:null,
-            analysisTotal:null
+                subQuestions:[],
+                statements:null,
+                questionCorrect:null,
+                analysisTotal:null
             }
             
         }
@@ -76,7 +63,7 @@ export default {
     methods:{
         addSubQuestion(){
             this.questionModel.subQuestions.push({
-                title:'',
+                questionTitle:'',
                 items:[{
                     prefix:'A',
                     content:''
@@ -93,7 +80,10 @@ export default {
                     prefix:'D',
                     content:''
                 }
-            ]
+            ],
+            questionScore : '',
+            correct : '',
+            analysis :'',
             })
         },
         addSubQuestionOption(items){

@@ -5,7 +5,9 @@ import com.example.entity.User;
 import com.example.mapper.UserMapper;
 import com.example.service.IUserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.example.utils.JwtUtil;
 import com.example.vo.Result;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Map;
@@ -21,9 +23,11 @@ import java.util.Map;
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IUserService {
 
+    @Autowired
+    JwtUtil jwtUtil;
+
     @Override
     public boolean login(User user, Result<Map<String, String>> result) {
-        System.out.println(user);
         LambdaQueryWrapper<User> q = new LambdaQueryWrapper<>();
 
         q.eq(User::getUserIdNumber, user.getUserIdNumber());
@@ -32,6 +36,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
         if(loginUser != null) {
             result.getData().put("role", loginUser.getUserRole().toString());
+            result.getData().put("token",jwtUtil.createToken(loginUser));
             return true;
         }
         else {

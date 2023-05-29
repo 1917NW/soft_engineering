@@ -41,4 +41,14 @@ nav a.router-link-exact-active {
   margin-left: 8px;
   width: 60%;
 }
+
+.line{
+    text-decoration: none;
+    color : skyblue
+}
+.line:hover{
+    color: blue;
+}
+
+
 </style>

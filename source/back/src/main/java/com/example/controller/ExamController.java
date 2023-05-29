@@ -1,14 +1,20 @@
 package com.example.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.conditions.query.QueryChainWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.entity.Exam;
 import com.example.entity.Paper;
 import com.example.entity.User;
+import com.example.entity.UserExam;
+import com.example.model.UserExamStatus.UserExamStatus;
 import com.example.model.paperModel.PaperModel;
 import com.example.model.paperModel.PaperModule;
 import com.example.service.IExamService;
+import com.example.service.IUserExamService;
+import com.example.service.IUserService;
 import com.example.utils.JsonUtil;
+import com.example.utils.JwtUtil;
 import com.example.vo.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
@@ -16,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.Controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -34,6 +41,9 @@ public class ExamController {
 
     @Autowired
     IExamService examService;
+
+
+
 
     @RequestMapping("/add")
     public Result<?> addExam(@RequestBody Exam exam){
@@ -73,5 +83,7 @@ public class ExamController {
         Exam exam = examService.getById(id);
         return  Result.success(exam);
     }
+
+
 
 }

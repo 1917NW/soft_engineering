@@ -3,6 +3,10 @@ package com.example.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.example.model.questionModel.InfoText;
+import com.example.model.questionModel.QuestionModel;
+import com.example.utils.JsonUtil;
+
 import java.io.Serializable;
 
 /**
@@ -34,9 +38,24 @@ public class Question implements Serializable {
 
     private String questionCorrect;
 
+    private String questionAnalysisTotal;
+
+
+
+
+    public String getQuestionAnalysisTotal() {
+        return questionAnalysisTotal;
+    }
+
+    public void setQuestionAnalysisTotal(String questionAnalysisTotal) {
+        this.questionAnalysisTotal = questionAnalysisTotal;
+    }
+
     public Integer getQuestionId() {
         return questionId;
     }
+
+
 
     public void setQuestionId(Integer questionId) {
         this.questionId = questionId;
@@ -77,15 +96,30 @@ public class Question implements Serializable {
         this.questionCorrect = questionCorrect;
     }
 
+    public QuestionModel getQuestionModel(){
+        QuestionModel questionModel = new QuestionModel();
+
+        questionModel.setQuestionId(getQuestionId());
+        questionModel.setQuestionCorrect(getQuestionCorrect());
+        questionModel.setQuestionType(getQuestionType());
+        questionModel.setArticle(getQuestionTitle());
+        questionModel.setScore(getQuestionScore());
+        InfoText infoText = JsonUtil.toJsonObject(getQuestionDescription(), InfoText.class);
+        questionModel.setSubQuestions(infoText.getSubQuestions());
+        questionModel.setCorrects(infoText.getStatements());
+        questionModel.setAnalysisTotal(getQuestionAnalysisTotal());
+        return questionModel;
+    }
     @Override
     public String toString() {
         return "Question{" +
-            "questionId=" + questionId +
-            ", questionTitle=" + questionTitle +
-            ", questionType=" + questionType +
-            ", questionDescription=" + questionDescription +
-            ", questionScore=" + questionScore +
-            ", questionCorrect=" + questionCorrect +
-        "}";
+                "questionId=" + questionId +
+                ", questionTitle='" + questionTitle + '\'' +
+                ", questionType=" + questionType +
+                ", questionDescription='" + questionDescription + '\'' +
+                ", questionScore=" + questionScore +
+                ", questionCorrect='" + questionCorrect + '\'' +
+                ", questionAnalysisTotal='" + questionAnalysisTotal + '\'' +
+                '}';
     }
 }

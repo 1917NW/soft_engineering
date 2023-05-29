@@ -13,6 +13,7 @@ public class SubQuestion {
 
     private String analysis;
 
+    //这里遇到了一个小问题，字段名不能为大写，否则json转换时会出现问题
     private String correct;
 
     public String getQuestionTitle() {

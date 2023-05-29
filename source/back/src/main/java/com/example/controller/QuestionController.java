@@ -36,6 +36,7 @@ public class QuestionController {
     @RequestMapping("/add")
     public Result<?> addQuestion(@RequestBody QuestionModel qm){
 
+        System.out.println(qm);
         Question question = getQuestionFromQuestionModel(qm);
         questionService.save(question);
         return Result.success("添加试题成功");
@@ -48,14 +49,18 @@ public class QuestionController {
         question.setQuestionTitle(qm.getArticle());
         question.setQuestionType(qm.getQuestionType());
         question.setQuestionCorrect(qm.getQuestionCorrect());
+        question.setQuestionAnalysisTotal(qm.getAnalysisTotal());
+
 
         InfoText infoText = new InfoText();
         infoText.setSubQuestions(qm.getSubQuestions());
-        infoText.setStatements(qm.getStatements());
+        infoText.setStatements(qm.getCorrects());
 
         question.setQuestionDescription(JsonUtil.toJsonStr(infoText));
         return question;
     }
+
+
 
     @GetMapping("/list")
     public Result<Map<String,Object>> getQuestionList(@RequestParam(value = "questionId",required = false) String questionId,
@@ -82,8 +87,8 @@ public class QuestionController {
             questionModel.setScore(r.getQuestionScore());
             InfoText infoText = JsonUtil.toJsonObject(r.getQuestionDescription(), InfoText.class);
             questionModel.setSubQuestions(infoText.getSubQuestions());
-            questionModel.setStatements(infoText.getStatements());
-
+            questionModel.setCorrects(infoText.getStatements());
+            questionModel.setAnalysisTotal(r.getQuestionAnalysisTotal());
 
             //questionModel.setSubQuestions();
             return questionModel;
@@ -107,7 +112,7 @@ public class QuestionController {
 
     @GetMapping("/{id}")
     public Result<Question> getQuestionById(@PathVariable("id") Integer id){
-        Question question =questionService.getById(id);
+        Question question = questionService.getById(id);
         System.out.println(question);
         return  Result.success(question);
     }

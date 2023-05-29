@@ -75,6 +75,32 @@ const routes = [
             path : "/single",
             name:"single",
             component:()=>import("@/components/admin/question/single.vue")
+        },
+        
+        {
+          path:"/selectWord",
+          name:"selectWord",
+          component : () => import("@/components/admin/question/selectWord.vue")
+        },
+        {
+          path:"/translate",
+          name : "translate",
+          component : () => import("@/components/admin/question/translate.vue")
+        },
+        {
+          path : "/composition",
+          name : "composition",
+          component : () => import("@/components/admin/question/composition.vue")
+        },
+        {
+          path : "/readselect",
+          name : "readselect",
+          component : () => import("@/components/admin/question/readselect.vue")
+        },
+        {
+          path : "/selectPara",
+          name : "selectPara",
+          component : () => import("@/components/admin/question/selectPara")
         }
         ]
       },
@@ -120,6 +146,92 @@ const routes = [
         }
     ]
   },
+  {
+    path:"/teacher",
+    name:"teacher",
+    component: () => import("@/views/teacher/TeacherHomeView.vue"),
+    children : [
+      {
+        path:"/tquestionlist",
+        name :"tquestionlist",
+        component:()=>import("@/components/teacher/QuestionList.vue")
+      },
+      {
+        path:"/tpaperlist",
+        name:"tpaperlist",
+        component:()=>import("@/components/teacher/PaperList.vue")
+      },
+      {
+        path:"/taddpaper",
+        name:"taddpaper",
+        component:()=>import("@/components/teacher/AddPaper.vue")
+      },
+      {
+        path:"/readoverexam",
+        name:"readoverexam",
+        component : () => import("@/components/teacher/ReadOverExam.vue")
+      },{
+        path:"/readover",
+        name:"readover",
+        component : () => import("@/components/teacher/ReadOver.vue")
+      },
+      {
+        path:"/taddquestion",
+        name : "taddquestion",
+        component:()=>import("@/components/teacher/AddQuestion.vue"),
+        children:[{
+            path : "/tsingle",
+            name:"tsingle",
+            component:()=>import("@/components/teacher/question/single.vue")
+        },
+        
+        {
+          path:"/tselectWord",
+          name:"tselectWord",
+          component : () => import("@/components/teacher/question/selectWord.vue")
+        },
+        {
+          path:"/ttranslate",
+          name : "ttranslate",
+          component : () => import("@/components/teacher/question/translate.vue")
+        },
+        {
+          path : "/tcomposition",
+          name : "tcomposition",
+          component : () => import("@/components/teacher/question/composition.vue")
+        },
+        {
+          path : "/treadselect",
+          name : "treadselect",
+          component : () => import("@/components/teacher/question/readselect.vue")
+        },
+        {
+          path : "/tselectPara",
+          name : "tselectPara",
+          component : () => import("@/components/teacher/question/selectPara")
+        }
+        ]
+      },
+    ]
+  },
+  {
+    path:"/do",
+    name:"doexam",
+    component:() => import("@/components/student/DoExam.vue"),
+   
+    
+  },
+  {
+    path:"/check",
+    name:"check",
+    component : () => import("@/components/student/CheckExam.vue")
+  },
+  {
+    path:"/point",
+    name : "point",
+    component : () => import("@/components/teacher/Point.vue")
+    
+  }
 
   
      

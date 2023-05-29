@@ -1,6 +1,7 @@
 package com.example.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
@@ -12,6 +13,7 @@ import java.io.Serializable;
  *
  * @author lxy
  * @since 2023-05-11
+ * 表示学生和考试之间的报名信息和考试成绩
  */
 @TableName("e_user_exam")
 public class UserExam implements Serializable {
@@ -21,10 +23,12 @@ public class UserExam implements Serializable {
     @TableId(value = "user_exam_id", type = IdType.AUTO)
     private Integer userExamId;
 
+    @TableField(value = "user_id")
     private Integer userId;
 
     private Integer examId;
 
+    //-1表示还没有成绩
     private Integer score;
 
     public Integer getUserExamId() {

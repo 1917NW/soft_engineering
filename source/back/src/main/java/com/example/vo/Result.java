@@ -21,17 +21,17 @@ public class Result<T> {
     }
 
     public static<T> Result<T> success(T data, String message){
-        return new Result<T>(Code.SUCCESS, "success", data);
+        return new Result<T>(Code.SUCCESS, message, data);
     }
 
     public static<T> Result<T> success(String message){
-        return new Result<T>(Code.SUCCESS, "Success!", null);
+        return new Result<T>(Code.SUCCESS, message, null);
     }
 
     public static<T> Result<T> fail(){
         return new Result<T>(Code.FAIL, "Fail!", null);
     }
     public static<T> Result<T> fail(String message){
-        return new Result<T>(Code.FAIL, "Fail!", null);
+        return new Result<T>(Code.FAIL, message, null);
     }
 }

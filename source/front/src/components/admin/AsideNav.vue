@@ -13,7 +13,7 @@
             style="height: 100%; width: 100%;">
             <el-submenu index="">
               <template slot="title">
-                <i class="el-icon-location"></i>
+                <i class="el-icon-info"></i>
                 <span>用户管理</span>
               </template>
               <el-menu-item-group>
@@ -24,18 +24,18 @@
             </el-submenu>
 
             <el-menu-item index="/questionlist">
-              <i class="el-icon-menu"></i>
+              <i class="el-icon-question"></i>
               <span slot="title">试题管理</span>
     
             </el-menu-item>
 
             <el-menu-item index="/paperlist">
-              <i class="el-icon-menu"></i>
+              <i class="el-icon-document"></i>
               <span slot="title">试卷管理</span>
             </el-menu-item>
 
             <el-menu-item index="/examlist">
-              <i class="el-icon-document"></i>
+              <i class="el-icon-menu"></i>
               <span slot="title">考试管理</span>
             </el-menu-item>
 
@@ -56,15 +56,7 @@
         handleClose(key, keyPath) {
           console.log(key, keyPath);
         },
-        change3(){
-          this.$store.state.role = 3;
-        },
-        change2(){
-          this.$store.state.role =2;
-        },
-        change1(){
-          this.$store.state.role =1;
-        }
+        
       }
     }
   </script>

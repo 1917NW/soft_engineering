@@ -1,7 +1,14 @@
 package com.example.model.questionModel;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.util.List;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class QuestionModel {
 
     //题目id，主要用来识别是新增问题，还是插入问题
@@ -26,85 +33,9 @@ public class QuestionModel {
     //单选题
     private List<SubQuestion> subQuestions;
 
-    //语句陈述题目，选词题
-    private List<String> statements;
+    //
+    private List<String> corrects;
 
 
-    public Integer getScore() {
-        return score;
-    }
 
-    public void setScore(Integer score) {
-        this.score = score;
-    }
-
-    public Integer getQuestionId() {
-        return questionId;
-    }
-
-    public void setQuestionId(Integer questionId) {
-        this.questionId = questionId;
-    }
-
-    public Integer getQuestionType() {
-        return questionType;
-    }
-
-    public void setQuestionType(Integer questionType) {
-        this.questionType = questionType;
-    }
-
-    public String getArticle() {
-        return article;
-    }
-
-    public void setArticle(String article) {
-        this.article = article;
-    }
-
-    public List<SubQuestion> getSubQuestions() {
-        return subQuestions;
-    }
-
-    public void setSubQuestions(List<SubQuestion> subQuestions) {
-        this.subQuestions = subQuestions;
-    }
-
-    public List<String> getStatements() {
-        return statements;
-    }
-
-    public void setStatements(List<String> statements) {
-        this.statements = statements;
-    }
-
-    public String getQuestionCorrect() {
-        return questionCorrect;
-    }
-
-    public void setQuestionCorrect(String questionCorrect) {
-        this.questionCorrect = questionCorrect;
-    }
-
-    public String getAnalysisTotal() {
-        return analysisTotal;
-    }
-
-    public void setAnalysisTotal(String analysisTotal) {
-        this.analysisTotal = analysisTotal;
-    }
-
-    @Override
-    public String toString() {
-        return "QuestionModel{" +
-                "questionId=" + questionId +
-                ", questionType=" + questionType +
-                ", article='" + article + '\'' +
-                ", subQuestions=" + subQuestions +
-                ", statements=" + statements +
-                ", questionCorrect='" + questionCorrect + '\'' +
-                ", analysisTotal='" + analysisTotal + '\'' +
-                ", score=" + score +
-                '}';
-    }
 }

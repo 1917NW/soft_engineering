@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.lxy.mapper.UserExamMapper">
-
+<mapper namespace="com.example.mapper.UserExamMapper">
+        <select id="getMyExams" parameterType="Integer" resultType="com.example.entity.Exam">
+                select e.exam_id as exam_id, e.exam_name as exam_name, e.exam_start_time as exam_start_time, e.exam_last_time as exam_last_time,
+                       e.exam_paper_id as exam_paper_id
+                from e_user_exam ue join e_exam e
+                on ue.exam_id = e.exam_id
+                where ue.user_id = #{id}
+        </select>
 </mapper>

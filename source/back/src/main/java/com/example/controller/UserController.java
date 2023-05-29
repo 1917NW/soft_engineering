@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.entity.User;
 import com.example.service.IUserService;
 import com.example.service.impl.UserServiceImpl;
+import com.example.utils.JwtUtil;
 import com.example.vo.Code;
 import com.example.vo.Result;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,10 @@ public class UserController {
     @Autowired
     IUserService userService;
 
+    @Autowired
+    JwtUtil jwtUtil;
+
+
     @PostMapping ("/login")
     public Result<?> login(@RequestBody User user){
         Result<Map<String,String>> res = new Result<>();
@@ -48,6 +53,14 @@ public class UserController {
         }
     }
 
+    @GetMapping("/info")
+    public Result<?> getInfo(@RequestHeader("X-Token") String token){
+        User user = jwtUtil.parseToken(token, User.class);
+        LambdaQueryWrapper<User> userLambdaQueryWrapper = new LambdaQueryWrapper<>();
+        userLambdaQueryWrapper.eq(User::getUserIdNumber,user.getUserIdNumber());
+        User one = userService.getOne(userLambdaQueryWrapper);
+        return Result.success(one);
+    }
     @PostMapping("/register")
     public Result<?> register(@RequestBody User user){
         boolean success = userService.save(user);

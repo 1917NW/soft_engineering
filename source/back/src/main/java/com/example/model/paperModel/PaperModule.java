@@ -6,7 +6,7 @@ import java.util.List;
 
 public class PaperModule {
     private String moduleName;
-    private Integer questionTyep;
+    private Integer questionType;
 
     List<PaperQuestion> questions;
 
@@ -18,12 +18,12 @@ public class PaperModule {
         this.moduleName = moduleName;
     }
 
-    public Integer getQuestionTyep() {
-        return questionTyep;
+    public Integer getQuestionType() {
+        return questionType;
     }
 
-    public void setQuestionTyep(Integer questionTyep) {
-        this.questionTyep = questionTyep;
+    public void setQuestionType(Integer questionTyep) {
+        this.questionType = questionTyep;
     }
 
     public List<PaperQuestion> getQuestions() {
@@ -38,7 +38,7 @@ public class PaperModule {
     public String toString() {
         return "PaperModule{" +
                 "moduleName='" + moduleName + '\'' +
-                ", questionTyep=" + questionTyep +
+                ", questionTyep=" + questionType +
                 ", questions=" + questions +
                 '}';
     }

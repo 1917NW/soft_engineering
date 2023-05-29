@@ -4,8 +4,8 @@
 <div class="login-container">
     
     <div class="box">
-        <h2>login</h2>
-        <el-form ref="userForm" :model="userForm" label-width="80px">
+        <h2>Login</h2>
+        <el-form ref="userForm" :model="userForm" label-width="80px" style="margin-top: 10px;">
         <el-form-item label="身份证号">
             <el-input placeholder="请输入身份证号" v-model="userForm.userIdNumber"></el-input>
         </el-form-item>
@@ -16,7 +16,7 @@
         </el-form>
      
         <el-button type="primary" @click="onSubmit">登录</el-button>
-        <div class="toRegister"> <router-link to="/register">还没有账号，注册一个？</router-link></div>
+        <div class="toRegister "> <router-link to="/register" class="line">还没有账号，注册一个？</router-link></div>
        
     </div>
 
@@ -26,13 +26,14 @@
 </template>
 
 <script>
+import Cookies from "js-cookie"
 import api from "../api/login.js"
 export default {
     data(){
         return {
             userForm :{
-                userIdNumber:'123456',
-                userPassword:'123456'
+                userIdNumber:'111',
+                userPassword:'111'
             }
         }
     },
@@ -40,14 +41,22 @@ export default {
         
         onSubmit() {
         api.login(this.userForm).then(res => {
-                console.log(res);
+               
+                
                 if(res.data.role == "1"){
-                    console.log(1);
+                    
                     this.$router.push("/admin");
+                    this.$store.state.token = res.data.token;
                 }
                 if(res.data.role == "3"){
-                    console.log(1);
+                   
                     this.$router.push("/student");
+                    this.$store.state.token = res.data.token;
+                   
+                }
+                if(res.data.role == "2"){
+                    this.$router.push("/teacher");
+                    this.$store.state.token = res.data.token;
                 }
                 
                 
@@ -87,4 +96,5 @@ export default {
 .toRegister{
     margin-top: 10px;
 }
+
 </style>
