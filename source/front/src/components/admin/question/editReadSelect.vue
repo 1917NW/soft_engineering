@@ -34,7 +34,7 @@
   
   <el-form-item> <el-button type="danger" size="mini" class="question-item-remove" icon="el-icon-plus" @click="addSubQuestion" >添加子问题</el-button></el-form-item>
   
-  <el-form-item> <el-button type="danger" size="mini" class="question-item-remove" icon="el-icon-plus" @click="submitbQuestion" >创建问题</el-button></el-form-item>
+  <el-form-item> <el-button type="danger" size="mini" class="question-item-remove" icon="el-icon-plus" @click="submitbQuestion" >修改问题</el-button></el-form-item>
   
   </el-form>
   
@@ -103,7 +103,7 @@
               subQuestion.items.splice(index);
           },
           submitbQuestion(){
-              questionApi.addQuestion(this.questionModel).then(res => {
+              questionApi.updateQuestion(this.questionModel).then(res => {
                   this.$message({
                   message : res.message,
                   type : 'success'

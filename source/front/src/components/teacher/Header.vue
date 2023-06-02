@@ -46,6 +46,7 @@ import userApi from "@/api/admin/user_management.js"
 export default {
   data(){
     return {
+      formLabelWidth : "120px",
       dialogFormVisible : false,
       userForm : {
         userIdNumber:"",

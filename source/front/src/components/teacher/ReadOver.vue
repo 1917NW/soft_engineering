@@ -1,6 +1,5 @@
 <template>
     <div>
-        <h1>批阅试卷</h1>
         <el-card id="searchBox" style="margin-top: 20px;width: 80%;">
         <el-row>
           <el-col :span="20" align="left"
@@ -39,10 +38,19 @@
           <el-table-column label="操作" width="180">
             <template slot-scope = "scope">
                 <router-link target="_blank" :to="{path:'/point',query:{id:JSON.stringify(scope.row), token:Token}}">
-                 <el-tag  type="" effect="dark">查看</el-tag>
+                 <el-tag  type="" effect="dark">批阅</el-tag>
                 </router-link>
             </template>
              </el-table-column>
+          
+        <el-table-column
+        label="批阅状态"
+        width="180">
+        <template slot-scope="scope">
+          <el-tag v-if="scope.row.status==0" type="danger">未批阅</el-tag>
+          <el-tag v-if="scope.row.status==1" type="success">已批阅</el-tag>
+        </template>
+      </el-table-column>
         </el-table>
       </el-card>
   
@@ -104,7 +112,7 @@ export default {
             pageNo: this.searchModel.pageNo,
             pageSize : this.searchModel.pageSize
         }).then(res => {
-            
+            console.log(res.data.rows)
             this.answerList = res.data.rows
         })
     }

@@ -95,7 +95,7 @@ export default {
         let str = ""
         for(var i = 0; i< statements.length;i++){
            let item = statements[i].split("_")
-           console.log(item)
+          
            str += item[0] + ")   "+item[1]
            str += "<br>"
         }

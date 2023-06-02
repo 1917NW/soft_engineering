@@ -106,8 +106,7 @@
      },
      created(){
          // console.log(this.question)
-         console.log(this.answers)
-         console.log(this.Index.number)
+        
          this.answer = this.answers[this.Index.number]
          this.Index.number ++ ;
          

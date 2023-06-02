@@ -1,8 +1,13 @@
 <template>
     <div>
+        <el-card>
+            <span class="do-exam-time">
+          <label>剩余时间：</label>
+          <label>{{formatSeconds(remainTime)}}</label>
+        </span>
+        </el-card>
         <el-card style="width:80%; margin:20px auto">
         <h1>{{ paperModel.paperName }}</h1>
-
         <div v-for="mod, index in paperModel.paperQuestionList" :key="index">
             <h2 style="margin-top:40px">{{ mod.moduleName }}</h2>
             <div v-for="q, index2 in mod.questions" :key="index2">
@@ -13,7 +18,7 @@
             </div>
         </div>
     </el-card>
-        <el-button @click="endExam" style="margin-top: 10px;">结束考试</el-button>
+        <el-button @click="endExam" style="margin-top: 10px;margin-bottom: 20px;">结束考试</el-button>
     </div>
 </template>
 
@@ -21,12 +26,14 @@
 import paperApi from "@/api/admin/paper_management"
 import QuestionEdit from "@/components/question/QuestionEdit.vue"
 import answerApi from "@/api/student/answer"
+import { formatSeconds } from '@/utils'
 export default {
     components:{
         QuestionEdit
     },
     data(){
         return {
+            remainTime: 135*60 ,
             paperModel : {
                 paperName:"",
                 paperQuestionList:null
@@ -38,13 +45,26 @@ export default {
                 //     subanswers : [],
                 //     statements : ""
                 // }
-            ]
+            ],
+            timer: null,
         }
     },
     methods:{
+        formatSeconds (theTime) {
+      return formatSeconds(theTime)
+    }, timeReduce () {
+     
+        let _this = this
+      this.timer = setInterval(function () {
+        if (_this.remainTime <= 0) {
+          _this.endExam()
+        } else {
+    
+          --_this.remainTime
+        }
+      }, 1000)
+    },
         endExam(){
-            console.log(111)
-            console.log(this.answers)
             answerApi.addAnswer({
                 examId : this.examId,
                 answers : this.answers
@@ -62,9 +82,9 @@ export default {
             // console.log(res)
             this.paperModel.paperName = res.data.paperName
             this.paperModel.paperQuestionList = JSON.parse(res.data.paperQuestionList)
-            console.log(123)
-            console.log( this.paperModel.paperQuestionList)
+          
         })
+        this.timeReduce()
         
 
        

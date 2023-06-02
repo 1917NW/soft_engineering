@@ -124,7 +124,7 @@ export default {
           })
         },
         deletePaper(paper){
-      this.$confirm(`你确认删除用户${paper.paperName}`, '提示', {
+      this.$confirm(`你确认删除试卷${paper.paperName}`, '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning'

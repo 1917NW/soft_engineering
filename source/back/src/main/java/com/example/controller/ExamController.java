@@ -58,7 +58,7 @@ public class ExamController {
                                                    @RequestParam(value = "pageSize") Long pageSize){
         LambdaQueryWrapper<Exam> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(StringUtils.hasLength(examName),Exam::getExamName, examName);
-        wrapper.eq(StringUtils.hasLength(examId),Exam::getExamName, examId);
+        wrapper.eq(StringUtils.hasLength(examId),Exam::getExamId, examId);
 
         wrapper.orderByDesc(Exam::getExamId);
         Page<Exam> page = new Page<>(pageNo,pageSize);

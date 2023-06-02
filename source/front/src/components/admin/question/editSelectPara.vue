@@ -2,7 +2,7 @@
     <el-form ref="form" :model="questionModel" label-width="80px" style="margin-top: 30px;">
   
   
-      <el-form-item label="段落" style="margin-top: 20px;" v-for="para,index in paragraphs" :key="index + 1">
+      <el-form-item label="段落" style="margin-top: 20px;" v-for="para,index in paragraphs" :key="'a'+index">
         <el-input v-model="para.prefix"  style="width:50px;vertical-align: top; margin-right: 20px;margin-left: 20px;" class="prefix" />
         <el-input type="textarea" :rows="6"  v-model="para.para" style="width:60%;vertical-align: top" ></el-input>
         <el-button type="danger" size="mini" class="question-item-remove" icon="el-icon-delete" @click="removePara(index)"></el-button>
@@ -11,12 +11,12 @@
       <el-form-item> <el-button type="danger" size="mini" class="question-item-remove" icon="el-icon-plus" @click="addPara" >添加段落</el-button></el-form-item>
   
   
-    <el-form-item label="子问题"  v-for="(subQuestion,index) in questionModel.subQuestions" :key="index" >
+    <el-form-item label="子问题"  v-for="(subQuestion,index) in questionModel.subQuestions" :key="'b'+index" >
      
       <el-input type="textarea" :rows="3" v-model="subQuestion.questionTitle"   style="width:60%"/>
       <el-button type="danger" size="mini" class="question-item-remove" icon="el-icon-delete" @click="removeSubQuestion(index)"></el-button>
   
-      <el-form-item  :label="item.prefix" :key="item.prefix"  v-for="(item,index2) in subQuestion.items"  label-width="50px" class="question-item-label">
+      <el-form-item  :label="item.prefix" :key="'c'+item.prefix"  v-for="(item,index2) in subQuestion.items"  label-width="50px" class="question-item-label">
             <el-input v-model="item.prefix"  style="width:50px" class="prefix" />
             <el-input v-model="item.content" style="width:50%;margin-left: 20px; " class="input"/>
             <el-button type="danger" size="mini" class="question-item-remove" icon="el-icon-delete" @click="removeSubQuestionOptions(subQuestion, index2)"></el-button>
@@ -38,7 +38,7 @@
   
   <el-form-item> <el-button type="danger" size="mini" class="question-item-remove" icon="el-icon-plus" @click="addSubQuestion" >添加子问题</el-button></el-form-item>
   
-  <el-form-item> <el-button type="danger" size="mini" class="question-item-remove" icon="el-icon-plus" @click="submitbQuestion" >创建问题</el-button></el-form-item>
+  <el-form-item> <el-button type="danger" size="mini" class="question-item-remove" icon="el-icon-plus" @click="submitbQuestion" >修改问题</el-button></el-form-item>
   
   </el-form>
   
@@ -111,15 +111,22 @@
               subQuestion.items.splice(index);
           },
           submitbQuestion(){
-                let str = ""
-                for(var i=0;i<this.paragraphs.length;i++){
+
+            let str = ""
+                if(this.paragraphs.length>0){
+                str += this.paragraphs[0].prefix
+                str += "_"
+                str += this.paragraphs[0].para
+                }
+                for(var i=1;i<this.paragraphs.length;i++){
+                    str += "|"
                     str += this.paragraphs[i].prefix
                     str += "_"
                     str += this.paragraphs[i].para
-                    str += "|"
+                   
                 }
-              this.questionModel.article = str
-              questionApi.addQuestion(this.questionModel).then(res => {
+                this.questionModel.article = str
+              questionApi.updateQuestion(this.questionModel).then(res => {
                   this.$message({
                   message : res.message,
                   type : 'success'

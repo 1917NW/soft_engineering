@@ -146,8 +146,7 @@
             for(var i =0; i<this.blanks.length;i++)
             this.questionModel.corrects.push(this.blanks[i].answer)
 
-            console.log(str)
-            console.log(this.questionModel.questionCorrect)
+           
               questionApi.addQuestion(this.questionModel).then(res => {
                   this.$message({
                   message : res.message,

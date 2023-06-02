@@ -2,15 +2,15 @@
 import request from "../../utils/request"
 
 export default {
-    getQuestionList(searchModel){
+    getScoreList(searchModel){
         return request({
-            url : '/question/list',
+            url : '/answer/scorelist',
             method : 'get',
             params : {
                 pageNo : searchModel.pageNo,
                 pageSize: searchModel.pageSize,
-                questionType : searchModel.type,
-                questionId: searchModel.id,
+                examId : searchModel.examId,
+                userId: searchModel.userId,
             }
         })
     },

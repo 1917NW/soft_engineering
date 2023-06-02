@@ -50,5 +50,7 @@ nav a.router-link-exact-active {
     color: blue;
 }
 
-
+.el-input{
+  white-space: pre-wrap;
+}
 </style>

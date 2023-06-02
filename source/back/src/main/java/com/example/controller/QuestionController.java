@@ -100,14 +100,14 @@ public class QuestionController {
     @DeleteMapping("/{id}")
     public Result<User> deleteUserById(@PathVariable("id") Integer id){
         questionService.removeById(id);
-        return Result.success("删除用户成功");
+        return Result.success("删除试题成功");
     }
 
     @PutMapping
     public Result<?> updateQuestion(@RequestBody QuestionModel qm){
         Question question = getQuestionFromQuestionModel(qm);
         questionService.updateById(question);
-        return Result.success("修改用户成功");
+        return Result.success("修改试题成功");
     }
 
     @GetMapping("/{id}")

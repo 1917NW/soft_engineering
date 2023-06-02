@@ -48,8 +48,7 @@ export default {
     },
     methods:{
         endExam(){
-            console.log(111)
-            console.log(this.answers)
+            
             answerApi.addAnswer({
                 examId : this.examId,
                 answers : this.answers
@@ -66,8 +65,7 @@ export default {
             // console.log(res)
             this.paperModel.paperName = res.data.paperName
             this.paperModel.paperQuestionList = JSON.parse(res.data.paperQuestionList)
-            console.log(123)
-            console.log( this.paperModel.paperQuestionList)
+         
         })
         
         examanswerApi.getMyExamAnswer(this.examId).then(res => {

@@ -51,6 +51,7 @@ import userApi from "@/api/admin/user_management.js"
 export default {
     data() {
       return {
+         formLabelWidth:"125px",
          navs : ["考试中心", "我的考试","考试成绩"],
          mapNavs : ["/studentExamList","/studentMyExams","/studentExamScore"],
          dialogFormVisible : false,

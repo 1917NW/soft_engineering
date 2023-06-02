@@ -84,7 +84,7 @@ public class PaperController {
     public Result<?> deletePaperById(@PathVariable("id") Integer id){
         System.out.println(id);
         paperService.removeById(id);
-        return Result.success("删除用户成功");
+        return Result.success("删除试卷成功");
     }
 
     @PutMapping

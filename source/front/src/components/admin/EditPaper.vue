@@ -42,8 +42,14 @@
   </el-form-item>
 
   <el-form-item label="题型：">
-    <el-select v-model="questionPage.queryParam.questionType" clearable>
-      <el-option  value="1" label="选择题"></el-option>
+    <el-select v-model="questionPage.queryParam.type" clearable>
+      <el-option  value="" label="全部"></el-option>
+      <el-option  value="0" label="作文题"></el-option>
+      <el-option  value="1" label="听力选择题"></el-option>
+      <el-option  value="2" label="阅读选词题"></el-option>
+      <el-option  value="3" label="阅读选段题"></el-option>
+      <el-option  value="4" label="阅读选择题"></el-option>
+      <el-option  value="5" label="翻译题"></el-option>
     </el-select>
   </el-form-item>
 
@@ -56,7 +62,16 @@
 @current-change="handleCurrentChange"
           border fit highlight-current-row style="width: 100%">
   <el-table-column prop="questionId" label="Id" width="60px"/>
-  <el-table-column prop="questionType" label="题型"  width="70px"/>
+  <el-table-column  label="题型"  width="70px">
+    <template slot-scope="scope">
+              <span v-if="scope.row.questionType==0">作文题</span>
+              <span v-if="scope.row.questionType==1">听力选择题</span>
+              <span v-if="scope.row.questionType==2">阅读选词题</span>
+              <span v-if="scope.row.questionType==3">阅读选段题</span>
+              <span v-if="scope.row.questionType==4">阅读选择题</span>
+              <span v-if="scope.row.questionType==5">翻译题</span>
+        </template>
+  </el-table-column>
   <el-table-column prop="article" label="文章" show-overflow-tooltip/>
 </el-table>  
     <el-pagination
@@ -96,8 +111,8 @@ export default {
             singleSelection : null,
             showDialog: false,
             queryParam: {
-            id: null,
-            questionType: null,
+            id: "",
+            type: "",
             pageNo: 1,
             pageSize: 5
             },
@@ -107,15 +122,19 @@ export default {
     }
     },
     methods:{
-        handleCurrentChangepage(){
-
+        handleCurrentChangepage(pageNo){
+            this.questionPage.queryParam.pageNo = pageNo;
+            this.search();
         },
         handleCurrentChange(val){
 
             this.questionPage.singleSelection = val
             console.log(this.questionPage.singleSelection)
         },
-        handleSizeChange(){},
+        handleSizeChange(pageSize){
+            this.questionPage.queryParam.pageSize = pageSize;
+            this.search();
+        },
         addSmallQuestion(items){
             items.push({
                 questionPrefix:"",

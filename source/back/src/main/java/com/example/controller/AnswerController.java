@@ -11,10 +11,12 @@ import com.example.model.answerModel.AnswersModel;
 import com.example.model.answerModel.SubAnswer;
 import com.example.model.questionModel.QuestionModel;
 import com.example.model.questionModel.SubQuestion;
+import com.example.model.scoreModel.ExamScoreModel;
 import com.example.model.scoreModel.ScoreModel;
 import com.example.service.IAnswerService;
 import com.example.service.IExamService;
 import com.example.service.IQuestionService;
+import com.example.service.IUserService;
 import com.example.utils.JsonUtil;
 import com.example.utils.JwtUtil;
 import com.example.vo.Result;
@@ -54,6 +56,9 @@ public class AnswerController {
     @Autowired
     IExamService examService;
     Map<Integer, AnswersModel> correctPapers = new HashMap<>();
+
+    @Autowired
+    IUserService userService;
 
     @RequestMapping("/addAnswer")
     public Result<?> addAnswer(@RequestBody AnswersModel answersModel, @RequestHeader("X-Token") String token){
@@ -113,6 +118,43 @@ public class AnswerController {
         AnswersModel answersModelFromAnswer = getAnswersModelFromAnswer(one);
         System.out.println(answersModelFromAnswer);
         return Result.success(answersModelFromAnswer);
+    }
+
+    @RequestMapping("/scorelist")
+    public Result<?> getExamScore(@RequestParam(value = "examId",required = false) String examId,
+                                  @RequestParam(value = "userIdNumber", required = false) String userIdNumber,
+                                  @RequestParam(value = "pageNo", required = false) Long pageNo,
+                                  @RequestParam(value = "pageSize") Long pageSize){
+        User one = null;
+        if(StringUtils.hasLength(userIdNumber)){
+           LambdaQueryWrapper<User> userLambdaQueryWrapper = new LambdaQueryWrapper<>();
+           userLambdaQueryWrapper.eq(User::getUserIdNumber, userIdNumber);
+           one= userService.getOne(userLambdaQueryWrapper);
+       }
+
+        LambdaQueryWrapper<Answer> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(StringUtils.hasLength(examId),Answer::getExamId, examId);
+        if(one != null)
+        wrapper.eq(StringUtils.hasLength(userIdNumber),Answer::getUserId,one.getUserId());
+        Page<Answer> page = new Page<>(pageNo,pageSize);
+        answerService.page(page,wrapper);
+        Map<String,Object> data = new HashMap<>();
+        data.put("total", page.getTotal());
+
+        List<ExamScoreModel> collect = page.getRecords().stream().map(r -> {
+            ExamScoreModel examScoreModel = new ExamScoreModel();
+            examScoreModel.setScore(r.getScore());
+            examScoreModel.setStatus(r.getStatus());
+            LambdaQueryWrapper<User> userLambdaQueryWrapper1 = new LambdaQueryWrapper<>();
+            userLambdaQueryWrapper1.eq(User::getUserId, r.getUserId());
+            User one1 = userService.getOne(userLambdaQueryWrapper1);
+
+            examScoreModel.setUserIdNumber(one1.getUserIdNumber());
+            examScoreModel.setUserName(one1.getUserName());
+            return examScoreModel;
+        }).collect(Collectors.toList());
+        data.put("rows",collect);
+        return Result.success(data);
     }
     @RequestMapping("/getExamsDone")
     public Result<?> getExamDone(@RequestHeader("X-Token") String token){

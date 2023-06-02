@@ -3,7 +3,7 @@
   
   
     <el-form-item label="文章" style="margin-top: 20px;">
-      <el-input v-model="questionModel.article" style="width:80%"></el-input>
+      <el-input :rows="6" type="textarea" v-model="questionModel.article" style="width:80%"></el-input>
     </el-form-item>
   
     <el-form-item label="子问题"  v-for="(subQuestion,index) in questionModel.subQuestions" :key="index" >
@@ -34,7 +34,7 @@
   
   <el-form-item> <el-button type="danger" size="mini" class="question-item-remove" icon="el-icon-plus" @click="addSubQuestion" >添加子问题</el-button></el-form-item>
   
-  <el-form-item> <el-button type="danger" size="mini" class="question-item-remove" icon="el-icon-plus" @click="submitbQuestion" >创建问题</el-button></el-form-item>
+  <el-form-item> <el-button type="danger" size="mini" class="question-item-remove" icon="el-icon-plus" @click="submitbQuestion" >修改问题</el-button></el-form-item>
   
   </el-form>
   

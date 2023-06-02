@@ -32,7 +32,7 @@ export default {
       methods:{
         getUserExamList(){
           examApi.getUserExamList().then(r=>{
-            console.log(r);
+         
             this.examList = r.data
           })
         },

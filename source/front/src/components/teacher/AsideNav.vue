@@ -28,6 +28,11 @@
               <span slot="title">考试批改</span>
             </el-menu-item>
 
+            <el-menu-item index="/tscore">
+              <i class="el-icon-menu"></i>
+              <span slot="title">成绩管理</span>
+            </el-menu-item>
+
 
           </el-menu>
         </el-col>

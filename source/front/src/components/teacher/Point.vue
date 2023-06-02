@@ -12,7 +12,7 @@
             </div>
         </div>
     </el-card>
-    <el-button @click="DoneExam" style="margin-top: 10px;">结束考试</el-button>
+    <el-button @click="DoneExam" style="margin-top: 10px;">批阅完成</el-button>
     </div>
 </template>
 
@@ -64,6 +64,7 @@ export default {
                 userId : this.userId,
                 status : 1
             })
+            window.close()
         }
     },
     created(){

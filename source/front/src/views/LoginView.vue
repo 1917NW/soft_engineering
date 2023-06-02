@@ -32,8 +32,8 @@ export default {
     data(){
         return {
             userForm :{
-                userIdNumber:'111',
-                userPassword:'111'
+                userIdNumber:'123456',
+                userPassword:'123456'
             }
         }
     },

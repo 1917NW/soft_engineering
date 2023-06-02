@@ -151,7 +151,7 @@
 
             console.log(str)
             console.log(this.questionModel.questionCorrect)
-              questionApi.addQuestion(this.questionModel).then(res => {
+              questionApi.updateQuestion(this.questionModel).then(res => {
                   this.$message({
                   message : res.message,
                   type : 'success'

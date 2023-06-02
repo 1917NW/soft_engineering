@@ -68,6 +68,16 @@ const routes = [
         component:()=>import("@/components/admin/AddPaper.vue")
       },
       {
+        path : "/score",
+        name : "score",
+        component: ()=>import("@/components/admin/ScoreList.vue")
+      },
+      {
+        path : "/examscore",
+        name : "/examscore",
+        component: () => import("@/components/admin/ScoreComponent.vue")
+      },
+      {
         path:"/addquestion",
         name : "addquestion",
         component:()=>import("@/components/admin/AddQuestion.vue"),
@@ -165,6 +175,16 @@ const routes = [
         path:"/taddpaper",
         name:"taddpaper",
         component:()=>import("@/components/teacher/AddPaper.vue")
+      },
+      {
+        path : "/tscore",
+        name : "tscore",
+        component: ()=>import("@/components/teacher/ScoreList.vue")
+      },
+      {
+        path : "/texamscore",
+        name : "/texamscore",
+        component: () => import("@/components/teacher/ScoreComponent.vue")
       },
       {
         path:"/readoverexam",

@@ -119,7 +119,7 @@
                     str += "|"
                 }
               this.questionModel.article = str
-              questionApi.addQuestion(this.questionModel).then(res => {
+              questionApi.updateQuestion(this.questionModel).then(res => {
                   this.$message({
                   message : res.message,
                   type : 'success'

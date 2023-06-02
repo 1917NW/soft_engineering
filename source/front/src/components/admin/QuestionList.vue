@@ -187,16 +187,19 @@ export default {
         });
     },
     openEditUI(row){
+      console.log(row)
       this.questionModel = row;
       this.dialogFormVisible = true;
     },
     clearForm(){
       this.getQuestionList();
+      this.questionModel.questionType = -1;
     },
 
     fatherMethod(){
       this.getQuestionList();
-      this.dialogFormVisible=false;
+      this.dialogFormVisible = false;
+      this.questionModel.questionType = -1;
       
     }
     },

@@ -2,7 +2,7 @@
     <el-form ref="form" :model="questionModel" label-width="80px">
   
   
-    <el-form-item label="文章片段" style="margin-top: 20px;" v-for="para,index in paragraphs" :key="'b'+index">
+    <el-form-item label="文章片段" style="margin-top: 20px;" v-for="para,index in paragraphs" :key="'a'+index">
         <el-input type="textarea" :rows="6"  v-model="para.para" style="width:60%;vertical-align: top" ></el-input>
         <el-button type="danger" size="mini" class="question-item-remove" icon="el-icon-delete" @click="removePara(index)"></el-button>
     </el-form-item>
@@ -44,7 +44,7 @@
   
 
   
-  <el-form-item> <el-button type="danger" size="mini" class="question-item-remove" icon="el-icon-plus" @click="submitbQuestion" >创建问题</el-button></el-form-item>
+  <el-form-item> <el-button type="danger" size="mini" class="question-item-remove" icon="el-icon-plus" @click="submitbQuestion" >修改问题</el-button></el-form-item>
   
   </el-form>
   
@@ -149,8 +149,7 @@
             for(var i =0; i<this.blanks.length;i++)
             this.questionModel.corrects.push(this.blanks[i].answer)
 
-            console.log(str)
-            console.log(this.questionModel.questionCorrect)
+          
               questionApi.addQuestion(this.questionModel).then(res => {
                   this.$message({
                   message : res.message,
@@ -165,6 +164,7 @@
         let strs = this.questionModel.article.split("___");
         for(var i =0 ;i<strs.length;i++)
             this.paragraphs.push({para:strs[i]});
+   
         console.log(this.paragraphs)
       }
   }
