@@ -22,7 +22,9 @@ public class MyInterceptorConfig implements WebMvcConfigurer {
                 .excludePathPatterns(
                         "/user/login",
                         "/user/logout",
-                        "/user/register"
+                        "/user/register",
+                        "/test/**"
+
                 );
 
     }

@@ -16,13 +16,10 @@ import java.util.UUID;
 
 @Component
 public class JwtUtil {
-
     //有效期
     private static final long JWT_EXPIRE = 30*60*1000L;
-
     //令牌密钥
     private  static final String JWT_KEY = "123456";
-
     public String createToken(Object data){
 
         //当前时间
