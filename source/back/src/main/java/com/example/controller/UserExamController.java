@@ -5,6 +5,7 @@ import com.example.entity.Exam;
 import com.example.entity.User;
 import com.example.entity.UserExam;
 import com.example.model.UserExamStatus.UserExamStatus;
+import com.example.model.userExamModel.UserExamModel;
 import com.example.service.IExamService;
 import com.example.service.IUserExamService;
 import com.example.service.IUserService;
@@ -72,7 +73,6 @@ public class UserExamController {
         UserExam userExam = new UserExam();
         userExam.setExamId(userExamId);
         userExam.setUserId(user.getUserId());
-        userExam.setScore(-1);
         userExamService.save(userExam);
         return Result.success("报名成功!");
     }
@@ -82,7 +82,18 @@ public class UserExamController {
         User user = jwtUtil.parseToken(token, User.class);
 
         List<Exam> myExam = userExamService.getMyExam(user.getUserId());
-        return Result.success(myExam);
+        List<UserExamModel> collect = myExam.stream().map(r -> {
+            UserExamModel userExamModel = new UserExamModel();
+            userExamModel.setExam(r);
+            LambdaQueryWrapper<UserExam> userExamLambdaQueryWrapper = new LambdaQueryWrapper<>();
+            userExamLambdaQueryWrapper.eq(UserExam::getUserId, user.getUserId());
+            userExamLambdaQueryWrapper.eq(UserExam::getExamId, r.getExamId());
+            UserExam one = userExamService.getOne(userExamLambdaQueryWrapper);
+            userExamModel.setStatus(one.getStatus());
+            return userExamModel;
+
+        }).collect(Collectors.toList());
+        return Result.success(collect);
     }
 
 }

@@ -44,7 +44,13 @@ export default {
         return request({
             url: '/exam',
             method:'put',
-            data:examModel
+            data : {
+                examId:examModel.examId,
+                examName:examModel.examName,
+                examStartTime:examModel.limitDateTime[0],
+                examLastTime:examModel.limitDateTime[1],
+                examPaperId:examModel.selectedExamId
+            }
         });
     },
     saveExam(exam){

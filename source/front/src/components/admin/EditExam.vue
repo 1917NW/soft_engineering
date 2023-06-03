@@ -21,7 +21,7 @@
 <el-form-item> <el-button type="primary" size="mini" class="question-item-remove" icon="el-icon-plus"  @click="selectPaper" >选择试卷</el-button></el-form-item>
 
 
-<el-form-item> <el-button type="success" size="mini" class="question-item-remove" icon="el-icon-plus"  @click="createExam">创建考试</el-button> </el-form-item>
+<el-form-item> <el-button type="success" size="mini" class="question-item-remove" icon="el-icon-plus"  @click="updateExam">修改考试</el-button> </el-form-item>
 </el-form>
 
 <el-dialog :visible.sync="paperPage.showDialog"  width="70%">
@@ -99,19 +99,34 @@ export default {
         queryForm(){
           this.search();
         },
-        handleCurrentChangepage(){
-
+        handleCurrentChangepage(pageNo){
+          this.paperPage.queryParam.pageNo = pageNo;
+          this.search();
         },
         handleCurrentChange(val){
             this.paperPage.singleSelection = val
             console.log(this.paperPage.singleSelection)
         },
-        handleSizeChange(){
-            
+        handleSizeChange(pageSize){
+            this.paperPage.queryParam.pageSize = pageSize;
+            this.search();
         },
         selectPaper(){
             this.paperPage.showDialog = true;
             this.search();
+        },
+        updateExam(){
+          this.examModel.selectedExamId = this.selectedPaper.paperId
+          console.log(this.examModel)
+
+          examApi.updateExam(this.examModel).then(res => {
+          this.$message({
+                message : res.message,
+                type : 'success'
+              });
+              this.$emit("father");
+              
+       });
         },
         search(){
         paperApi.getPaperList(this.paperPage.queryParam).then(res =>{
@@ -120,18 +135,12 @@ export default {
         })
     },
     comfirmSelectPaper(){
-        this.examModel.selectedPaper = this.paperPage.singleSelection;
+        this.selectedPaper = this.paperPage.singleSelection;
         this.paperPage.showDialog = false;
+        console.log(this.selectedPaper)
+       
     },
-    createExam(){
-      examApi.addExam(this.examModel).then(res => {
-        this.$message({
-                message : res.message,
-                type : 'success'
-              });
-              this.$router.push("/examlist");
-      });
-    }
+   
     },
     created(){
       paperApi.getPaperById(this.examModel.selectedExamId).then(res => {

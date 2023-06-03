@@ -84,6 +84,13 @@ public class ExamController {
         return  Result.success(exam);
     }
 
+    @PutMapping
+    public Result<?> updateUser(@RequestBody Exam exam){
+        System.out.println(exam);
+        examService.updateById(exam);
+        return Result.success("修改考试成功");
+    }
+
 
 
 }

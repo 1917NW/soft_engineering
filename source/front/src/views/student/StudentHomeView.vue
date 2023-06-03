@@ -114,9 +114,10 @@ export default {
     .contain{
         display: flex;
         width: 60%;
-        height: 5%;
+        height: 7%;
         margin: 0 auto;
         border:1px solid black;
+        border-radius: 5px;
     }
     .item{
         flex: 1;
@@ -126,6 +127,7 @@ export default {
     }
     .item:hover{
         background-color: skyblue;
+        cursor:pointer;
     }
     .user{
     float: right;

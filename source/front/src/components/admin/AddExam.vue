@@ -101,16 +101,18 @@ export default {
         queryForm(){
           this.search();
         },
-        handleCurrentChangepage(){
-
+        handleCurrentChangepage(pageNo){
+          this.paperPage.queryParam.pageNo = pageNo;
+          this.search();
         },
         handleCurrentChange(val){
             this.paperPage.singleSelection = val
             console.log(this.paperPage.singleSelection)
         },
-        handleSizeChange(){
-            
-        },
+        handleSizeChange(pageSize) {
+      this.paperPage.queryParam.pageSize = pageSize;
+      this.search();
+    },
         selectPaper(){
             this.paperPage.showDialog = true;
             this.search();

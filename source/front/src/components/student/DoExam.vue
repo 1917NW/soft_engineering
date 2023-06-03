@@ -33,7 +33,8 @@ export default {
     },
     data(){
         return {
-            remainTime: 135*60 ,
+            endTime:"",
+            remainTime: 0 ,
             paperModel : {
                 paperName:"",
                 paperQuestionList:null
@@ -77,7 +78,11 @@ export default {
         this.paperId = id;
         this.examId = this.$route.query.examId
         this.$store.state.token = this.$route.query.token
-        
+        this.endTime = this.$route.query.endTime;
+        var now = new Date();
+        var endTime = new Date(this.endTime);
+        var remainTimeMillons = endTime.getTime() - now.getTime();
+        this.remainTime = remainTimeMillons/1000;
         paperApi.getPaperById(id).then(res => {
             // console.log(res)
             this.paperModel.paperName = res.data.paperName

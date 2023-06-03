@@ -71,7 +71,7 @@
     </el-pagination>
 
     <el-dialog ref="dialog"   :visible.sync="dialogFormVisible">
-        <editexam :exam-model="currentExam"></editexam>
+        <editexam :exam-model="currentExam" @father="fatherMethod"></editexam>
     </el-dialog>
     
   </div>
@@ -148,6 +148,10 @@ export default {
         selectedExamId : exam.examPaperId
       }
       this.dialogFormVisible = true;
+    },
+    fatherMethod(){
+      this.getExamList();
+      this.dialogFormVisible = false;
     }
     },
     created(){

@@ -4,6 +4,10 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import java.io.Serializable;
 
 /**
@@ -15,6 +19,9 @@ import java.io.Serializable;
  * @since 2023-05-11
  * 表示学生和考试之间的报名信息和考试成绩
  */
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @TableName("e_user_exam")
 public class UserExam implements Serializable {
 
@@ -28,45 +35,12 @@ public class UserExam implements Serializable {
 
     private Integer examId;
 
-    //-1表示还没有成绩
-    private Integer score;
 
-    public Integer getUserExamId() {
-        return userExamId;
-    }
+    //1表示已经参加
+    //0表示未参加
+    private Integer status;
 
-    public void setUserExamId(Integer userExamId) {
-        this.userExamId = userExamId;
-    }
-    public Integer getUserId() {
-        return userId;
-    }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
-    public Integer getExamId() {
-        return examId;
-    }
 
-    public void setExamId(Integer examId) {
-        this.examId = examId;
-    }
-    public Integer getScore() {
-        return score;
-    }
 
-    public void setScore(Integer score) {
-        this.score = score;
-    }
-
-    @Override
-    public String toString() {
-        return "UserExam{" +
-            "userExamId=" + userExamId +
-            ", userId=" + userId +
-            ", examId=" + examId +
-            ", score=" + score +
-        "}";
-    }
 }

@@ -2,10 +2,7 @@ package com.example.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.example.entity.Answer;
-import com.example.entity.Exam;
-import com.example.entity.Question;
-import com.example.entity.User;
+import com.example.entity.*;
 import com.example.model.answerModel.AnswerModel;
 import com.example.model.answerModel.AnswersModel;
 import com.example.model.answerModel.SubAnswer;
@@ -13,10 +10,7 @@ import com.example.model.questionModel.QuestionModel;
 import com.example.model.questionModel.SubQuestion;
 import com.example.model.scoreModel.ExamScoreModel;
 import com.example.model.scoreModel.ScoreModel;
-import com.example.service.IAnswerService;
-import com.example.service.IExamService;
-import com.example.service.IQuestionService;
-import com.example.service.IUserService;
+import com.example.service.*;
 import com.example.utils.JsonUtil;
 import com.example.utils.JwtUtil;
 import com.example.vo.Result;
@@ -59,6 +53,8 @@ public class AnswerController {
 
     @Autowired
     IUserService userService;
+    @Autowired
+    IUserExamService userExamService;
 
     @RequestMapping("/addAnswer")
     public Result<?> addAnswer(@RequestBody AnswersModel answersModel, @RequestHeader("X-Token") String token){
@@ -70,6 +66,13 @@ public class AnswerController {
         answerFromAnswerModel.setStatus(0);
         answerFromAnswerModel.setScore(score);
         answerService.save(answerFromAnswerModel);
+
+        UserExam userExam = new UserExam();
+        userExam.setStatus(1);
+        LambdaQueryWrapper<UserExam> userExamLambdaQueryWrapper = new LambdaQueryWrapper<>();
+        userExamLambdaQueryWrapper.eq(UserExam::getUserId, user.getUserId());
+        userExamLambdaQueryWrapper.eq(UserExam::getExamId,answersModel.getExamId() );
+        userExamService.update(userExam,userExamLambdaQueryWrapper);
 
         return Result.success();
     }
