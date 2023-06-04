@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 /**
@@ -49,7 +50,9 @@ public class AnswerController {
 
     @Autowired
     IExamService examService;
-    Map<Integer, AnswersModel> correctPapers = new HashMap<>();
+
+    //采用缓存技术
+    Map<Integer, AnswersModel> correctPapers = new ConcurrentHashMap<>();
 
     @Autowired
     IUserService userService;

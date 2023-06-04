@@ -128,6 +128,7 @@ export default {
     .item:hover{
         background-color: skyblue;
         cursor:pointer;
+        color:yellow
     }
     .user{
     float: right;

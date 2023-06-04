@@ -8,6 +8,9 @@
               <el-card>{{ answer.statementAnswer }}</el-card>
               
              </el-form-item>
+             <el-form-item label="总分">
+                <el-tag type="success">{{ question.score }}</el-tag>
+             </el-form-item>
              <el-form-item label="打分" style="margin-top: 30px;">
                 <el-input style="width: 50px;" v-model="answer.subanswers[0].score"></el-input>
              </el-form-item>
@@ -74,6 +77,9 @@
              <el-form-item label="作答区域" style="margin-top: 30px;">
               <el-card> {{ answer.statementAnswer }}</el-card>
              </el-form-item>
+             <el-form-item label="总分">
+                <el-tag type="success">{{ question.score }}</el-tag>
+             </el-form-item>
              <el-form-item label="打分" style="margin-top: 30px;">
                 <el-input style="width: 50px;" v-model="answer.subanswers[0].score"></el-input>
              </el-form-item>
@@ -119,8 +125,7 @@
          this.Index.number ++ ;
          
          if(this.question.questionType == 0 || this.question.questionType == 5){
-             this.htmlArticle = "&nbsp;&nbsp;&nbsp;&nbsp;"+this.question.article
-             
+             this.htmlArticle = "&nbsp;&nbsp;&nbsp;&nbsp;"+this.question.article             
          }
                     
          else if(this.question.questionType == 2){
