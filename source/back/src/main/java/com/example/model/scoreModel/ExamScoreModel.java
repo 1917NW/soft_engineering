@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ExamScoreModel {
-    private Integer userIdNumber;
+    private String userIdNumber;
     private String userName;
 
     private Integer status;

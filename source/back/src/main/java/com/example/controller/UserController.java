@@ -64,10 +64,13 @@ public class UserController {
     @PostMapping("/register")
     public Result<?> register(@RequestBody User user){
         boolean success = userService.save(user);
-        if(success)
-            return Result.success("Register successfully!");
-        else
-            return Result.fail("Register Failed!");
+        System.out.println(user);
+        Result<Map<String,String>> res = new Result<>();
+        res.setData(new HashMap<>());
+        userService.register(user, res);
+        res.setCode(Code.SUCCESS);
+        res.setMessage("Register successfully!");
+        return res;
 
     }
 
@@ -109,6 +112,7 @@ public class UserController {
     @PostMapping("/add")
     public Result<?> addUser(@RequestBody User user){
 
+        System.out.println(user);
         userService.save(user);
 
         return Result.success("新增用户成功");
@@ -116,7 +120,6 @@ public class UserController {
 
     @PutMapping
     public Result<?> updateUser(@RequestBody User user){
-        user.setUserPassword(null);
         userService.updateById(user);
         return Result.success("修改用户成功");
     }

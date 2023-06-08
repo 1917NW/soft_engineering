@@ -46,6 +46,9 @@ export default {
         onSubmit() {
         if(this.userForm.userPassword == this.userPasswordR){
         api.register(this.userForm).then(res => {
+            console.log(123)
+            this.$store.state.token = res.data.token;
+            console.log(this.$store.state.token)
                 this.$router.push("/student");      
         });
     }else

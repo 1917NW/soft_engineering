@@ -44,4 +44,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         }
 
     }
+
+    @Override
+    public boolean register(User user, Result<Map<String, String>> result) {
+        String s = jwtUtil.createToken(user);
+        System.out.println(s);
+        result.getData().put("token",s);
+        return true;
+    }
 }
